@@ -99,15 +99,29 @@
 	function Drum ( el, data ) {
 		this.element = el;
 		this.rotation = 0;
-		this.panelCount = 16;
+		this.panelCount = 24;
 		this.theta = 0;
 		this.distance = 0;
 		
+		this.mapping = []
 		this.data = data;
-		for (var i in data)
-			$(this.element).append('<figure>' + data[i] + '</figure>');
 
-		for (i=0; i < this.element.children.length; i++ ) {
+		for (var i in this.data) {
+			var elem = document.createElement("figure");
+			$(elem).text(this.data[i]);
+			var item = {
+				elem : elem,
+				angle : null,
+				data : {
+					name : i,
+					value : this.data[i]
+				}
+			}
+			this.mapping.push(item)
+			$(this.element).append(elem);
+		}
+
+		for (i=0; i < this.element.children.length; i++) {
 			panel = this.element.children[i];
 			panel.style.opacity = 0;
 			panel.style[ transformProp ] = 'none';
@@ -138,13 +152,6 @@
             this.setRotation();
 		}).bind(this) );
 	}
-	Drum.prototype.format = function(val, lead) {
-		if (!lead)
-			return val;
-		if (val < 10)
-			return "0" + val;
-		return val;
-	}
 	Drum.prototype.modify = function() {
 		var panel, angle, i;
 
@@ -157,11 +164,12 @@
 		var lim = this.panelCount / 2;
 		for ( i = 0; i < this.element.children.length; i++ ) {
 			if (i < (lim+1) || i > this.element.children.length - lim) {
+				this.mapping[i].angle = this.theta * cnt;
 				panel = this.element.children[i];
-				angle = this.theta * cnt;
-				cnt++
 				panel.style.opacity = 1;
-				panel.style[ transformProp ] = this.rotateFn + '(' + angle + 'deg) translateZ(' + this.radius + 'px)';
+				panel.style[ transformProp ] = this.rotateFn + '(' + this.mapping[i].angle + 'deg) translateZ(' + this.radius + 'px)';
+
+				cnt++;
 			}
 		}
 		this.setRotation(0);
@@ -173,8 +181,13 @@
 		var pos = ((deg + th) % n + n) % n;
 		pos = pos - pos % this.theta;
    		this.rotation = pos;
-   		console.log(this.getValue());
 		this.transform();
+		for (var i in this.mapping) {
+			if (this.mapping[i].angle == pos) {
+				console.log(this.mapping[i].data.value);
+				break;
+			}
+		}
 	};
     Drum.prototype.getRotation = function() {
 		return this.rotation;
@@ -213,7 +226,6 @@
 			data : data
 		});
 	});
-
 	</script>
 </body>
 </html>
