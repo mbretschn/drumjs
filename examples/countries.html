@@ -36,7 +36,7 @@
 		float: left;
 		overflow: hidden;
 		height: 145px;
-		width:300px;
+		width:100px;
 		border: 1px solid #CCC;
 	}
 	.container {
@@ -77,6 +77,10 @@
 		color: black;
 		margin: 0px;
 		font-family: 'Exo 2', sans-serif;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 100px;
 	}
 	</style>
 </head>
@@ -88,7 +92,6 @@
 <option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option></select>
 <script>
 	"use strict";
-	var transformProp = Modernizr.prefixed('transform');
 
 	Hammer.plugins.fakeMultitouch();
 	Hammer.plugins.showTouches();
@@ -104,8 +107,8 @@
 		return this.data[this.index].value;
 	}
 
-	function PanelModel (theta, index, dataModel, parent) {
-		this.angle = theta * index;
+	function PanelModel (index, dataModel, parent) {
+		this.angle = parent.theta * index;
 		this.index = index;
 		this.dataModel = dataModel;
 		this.elem = document.createElement('figure');
@@ -114,7 +117,6 @@
 		$(this.elem).css('opacity', '0.5');
 		$(this.elem).css(parent.transformProp, parent.rotateFn + '(' + -this.angle + 'deg) translateZ(' + parent.radius + 'px)');
 		$(parent.element).append(this.elem);
-
 		this.setText();
 	}
 	PanelModel.prototype.setText = function () {
@@ -123,7 +125,7 @@
 	PanelModel.prototype.update = function (data_index) {
 		if (this.dataModel.index != data_index) {
 			this.dataModel.index = data_index;
-			this.setText();			
+			this.setText();
 		}
 	}
 
@@ -131,17 +133,36 @@
 		this.element = el;
 		this.data = data;
 
-		this.transformProp = Modernizr.prefixed('transform');
-		this.rotation = 0;
 		this.panelCount = 24;
-		this.theta = 360 / this.panelCount;
+		this.rotateFn = 'rotateX';
+		
+		this.rotation = 0;
 		this.distance = 0;
-		this.mapping = []
 		this.last_angle = 0;
 		
-		this.setup();
-		this.transform();
+		this.theta = 360 / this.panelCount;
 
+		this.transformProp = Modernizr.prefixed('transform');
+		this.radius = Math.round( ( this.element['offsetHeight'] / 2 ) / Math.tan( Math.PI / this.panelCount ) );
+
+		this.mapping = [];
+
+		this.setup();
+		this.attachevents();
+	};
+	Drum.prototype.setup = function() {
+		var c = 0;
+		for (var i=0; i < this.panelCount; i++) {
+			var j = c;
+			if (c >= (this.panelCount / 2)) {
+				j = this.data.length - (this.panelCount - c);
+			}
+			c++;
+			this.mapping.push(new PanelModel(i, new DrumModel(this.data, j), this));
+		}
+		this.transform();
+	};
+	Drum.prototype.attachevents = function () {
 		var hammertime = Hammer(this.element.parentNode.parentNode, {
 			prevent_default: true,
 			no_mouseevents: true
@@ -152,34 +173,20 @@
 		}).bind(this) );
 
 		hammertime.on("drag", (function (e) {
-			if (["up", "down"].indexOf(e.gesture.direction)>=0) {
-				var delta = Math.round(e.gesture.deltaY - this.distance) * -1;
-				var rotation = this.getRotation();
-				this.rotation += delta;
-				this.transform();
+			var evt = ["up", "down"];
+			if (evt.indexOf(e.gesture.direction)>=0) {
+				this.deltaRotate(Math.round(e.gesture.deltaY - this.distance) * -1);
 				this.distance = e.gesture.deltaY;
 			}
 		}).bind(this) );
 
-		hammertime.on("dragend", (function (e) { 
-	   		this.rotation = this.nearest();
-			this.transform();
-		}).bind(this) );
-	};
-	Drum.prototype.setup = function() {
-		this.panelSize = this.element['offsetHeight'];
-		this.rotateFn = 'rotateX';
-		this.radius = Math.round( ( this.panelSize / 2) / Math.tan( Math.PI / this.panelCount ) );
+		hammertime.on("dragend", (function (e) {
+			this.nearestRotate();
 
-		var c = 0;
-		for (var i=0; i < this.panelCount; i++) {
-			var j = c;
-			if (c >= (this.panelCount / 2)) {
-				j = this.data.length - (this.panelCount - c);
-			}
-			c++;
-			this.mapping.push(new PanelModel(this.theta, i, new DrumModel(this.data, j), this));
-		}
+	    	var selected = this.getSelected().dataModel;
+			console.log(selected.getValue() + ":" + selected.getText());
+
+		}).bind(this) );
 	};
 	Drum.prototype.update = function (selected) {
 		var c, list = [], pc = this.panelCount, ph = this.panelCount / 2;
@@ -193,25 +200,24 @@
 				c = k-this.data.length;
 			list.push(c);
 		}
-		var _t = list.slice(ph-i); 
-		list = _t.concat(list.slice(0, pc - _t.length));
+		var t = list.slice(ph-i); 
+		list = t.concat(list.slice(0, pc - t.length));
 		for (var i=0; i<this.mapping.length; i++) {
 			this.mapping[i].update(list[i]);
 		}
 	};
     Drum.prototype.transform = function() {
-    	var selected = this.selected();
+    	var selected = this.getSelected();
+		$(this.element).css(this.transformProp, 'translateZ(-' + this.radius + 'px) ' + this.rotateFn + '(' + this.rotation + 'deg)');
+		$(selected.elem).css("opacity", 1);
+		$("figure:not(.a" + selected.angle + ", .hidden)", this.element).css("opacity", "0.5");
+
     	if (selected.angle != this.last_angle && [0,90,180,270].indexOf(selected.angle) >= 0) {
 			this.last_angle = selected.angle;
 			this.update(selected);
     	}
-
-		this.element.style[ transformProp ] = 'translateZ(-' + this.radius + 'px) ' + this.rotateFn + '(' + this.rotation + 'deg)';
-		
-		$(selected.elem).css("opacity", 1);
-		$("figure:not(.a" + selected.angle + ", .hidden)", this.element).css("opacity", "0.5");
     };
-    Drum.prototype.nearest = function (deg) {
+    Drum.prototype.getNearest = function (deg) {
     	deg = deg || this.rotation;
    		var th = (this.theta / 2);
    		var n = 360;
@@ -219,14 +225,14 @@
 		angle = angle - angle % this.theta;
 		return angle;
     };
-    Drum.prototype.selected = function () {
-		var nearest = this.nearest();    	
+    Drum.prototype.getSelected = function () {
+		var nearest = this.getNearest();    	
 		for (var i in this.mapping) {
 			if (this.mapping[i].angle == nearest) {
 				return this.mapping[i];
 				break;
 			}
-		}    	
+		}
     };
     Drum.prototype.setRotation = function(deg) {
 		this.rotation = deg;
@@ -234,8 +240,14 @@
     Drum.prototype.getRotation = function() {
 		return this.rotation;
 	};
-    Drum.prototype.getValue = function() {
-		console.log(this.rotation/this.theta);
+	Drum.prototype.deltaRotate = function(delta) {
+		var rotation = this.getRotation();
+		this.setRotation(this.rotation + delta);
+		this.transform();
+	};
+	Drum.prototype.nearestRotate= function() {
+		this.setRotation(this.getNearest());
+		this.transform();
 	};
 
 	$(function() {
@@ -265,6 +277,7 @@
 				my.drum = new Drum(drum, my.data);
 		    }
 		});
+
 		$("#country").drum();
 		$("#number").drum();
 		$("#n45").drum();
