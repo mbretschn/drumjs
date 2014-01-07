@@ -135,16 +135,15 @@
 
 		this.panelCount = 24;
 		this.rotateFn = 'rotateX';
+		this.transformProp = Modernizr.prefixed('transform');
 		
 		this.rotation = 0;
 		this.distance = 0;
 		this.last_angle = 0;
 		
 		this.theta = 360 / this.panelCount;
-
-		this.transformProp = Modernizr.prefixed('transform');
 		this.radius = Math.round( ( this.element['offsetHeight'] / 2 ) / Math.tan( Math.PI / this.panelCount ) );
-
+console.log(this.element);
 		this.mapping = [];
 
 		this.setup();
