@@ -75,44 +75,6 @@
 			padding-top: 5px;
 		}
 
-		div.drum-wrapper .dial {
-			position: absolute;
-			width: 100%;
-			left: 0px;
-			height: 45px;
-			background-color: rgba(255, 255, 255, 0.7);
-			display: none;
-		}
-		div.drum-wrapper .dial div {
-			width: 20px;
-			height: 10px;
-			height: 100%;
-			margin: 0 auto;
-		}
-		div.drum-wrapper .dial svg {
-			position: absolute;
-		}
-		div.drum-wrapper .up {
-			top: 0px;
-		}
-		div.drum-wrapper .up svg {
-			top: 0px
-		}
-		div.drum-wrapper .down {
-			bottom: 0px;
-		}
-		div.drum-wrapper .down svg {
-			bottom: 0px;
-		}
-
-		div.date_range .show_up .down {
-			display: none;
-		}
-
-		div.date_range .show_down .up {
-			display: none;
-		}
-
 		div.date_range div.date_range_container .lines {
 			border: solid 1px #CCC;
 			border-left: none;
@@ -181,6 +143,12 @@
 		Hammer.plugins.fakeMultitouch();
 		//Hammer.plugins.showTouches();
 
+		function getIndexForValue(elem, value) {
+			for (var i=0; i<elem.options.length; i++)
+				if (elem.options[i].value == value)
+					return i;
+		}
+
 		function pad(number) {
 			if ( number < 10 ) {
 				return '0' + number;
@@ -207,11 +175,34 @@
 						eval ("date." + arr[s] + "(" + i + ")");
 					}
 					date.setSeconds(0);
+
+					$("#" + section + "_date").drum('setIndex', date.getDate()-1); 
+					$("#" + section + "_month").drum('setIndex', date.getMonth()); 
+					$("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#from_fullYear")[0], date.getFullYear())); 
+					$("#" + section + "_hours").drum('setIndex', date.getHours()); 
+					$("#" + section + "_minutes").drum('setIndex', date.getMinutes()); 
+
 					var format = date.getFullYear() + '-' + pad( date.getMonth() + 1 ) + '-' + pad( date.getDate() ) + ' ' + pad( date.getHours() ) + ':' + pad( date.getMinutes() );
 
 					$('.date_range_' + section + '_header .selection').html(format);
 				}
 			});
+
+			var now = new Date();
+			var init_date_from = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+			var init_date_to = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0);
+
+			$("#from_date").drum('setIndex', init_date_from.getDate()-1); 
+			$("#from_month").drum('setIndex', init_date_from.getMonth()); 
+			$("#from_fullYear").drum('setIndex', getIndexForValue($("#from_fullYear")[0], init_date_from.getFullYear())); 
+			$("#from_hours").drum('setIndex', init_date_from.getHours()); 
+			$("#from_minutes").drum('setIndex', init_date_from.getMinutes()); 
+
+			$("#to_date").drum('setIndex', init_date_to.getDate()-1); 
+			$("#to_month").drum('setIndex', init_date_to.getMonth()); 
+			$("#to_fullYear").drum('setIndex', getIndexForValue($("#to_fullYear")[0], init_date_to.getFullYear())); 
+			$("#to_hours").drum('setIndex', init_date_to.getHours()); 
+			$("#to_minutes").drum('setIndex', init_date_to.getMinutes()); 
 		});
 	</script>
 </head>
@@ -239,14 +230,14 @@
 			</div>
 			<form name="date_from">
 				<div class="lines"></div>
-				<select class="drum" name="from_date">
+				<select class="drum" id="from_date" name="from_date">
 					<option value="1">1.</option>
 					<option value="2">2.</option>
 					<option value="3">3.</option>
 					<option value="4">4.</option>
 					<option value="5">5.</option>
 					<option value="6">6.</option>
-					<option value="7" selected>7.</option>
+					<option value="7">7.</option>
 					<option value="8">8.</option>
 					<option value="9">9.</option>
 					<option value="10">10.</option>
@@ -272,8 +263,8 @@
 					<option value="30">30.</option>
 					<option value="31">31.</option>
 				</select>
-				<select class="drum" name="from_month">
-					<option value="0" selected>January</option>
+				<select class="drum" id="from_month" name="from_month">
+					<option value="0">January</option>
 					<option value="1">February</option>
 					<option value="2">March</option>
 					<option value="3">April</option>
@@ -286,12 +277,17 @@
 					<option value="10">November</option>
 					<option value="11">December</option>
 				</select>
-				<select class="drum" name="from_fullYear">
+				<select class="drum" id="from_fullYear" name="from_fullYear">
+					<option value="2011">2011</option>
+					<option value="2012">2012</option>
 					<option value="2013">2013</option>
-					<option value="2014" selected>2014</option>
+					<option value="2014">2014</option>
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+					<option value="2017">2017</option>
 				</select>
-				<select class="drum" name="from_hours">
-					<option value="0" selected>00</option>
+				<select class="drum" id="from_hours" name="from_hours">
+					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
 					<option value="3">03</option>
@@ -316,8 +312,8 @@
 					<option value="22">22</option>
 					<option value="23">23</option>
 				</select>
-				<select class="drum" name="from_minutes">
-					<option value="0" selected>00</option>
+				<select class="drum" id="from_minutes" name="from_minutes">
+					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
 					<option value="3">03</option>
@@ -387,14 +383,14 @@
 			</div>
 			<form name="date_to">
 				<div class="lines"></div>
-				<select class="drum" name="to_date">
+				<select class="drum" id="to_date" name="to_date">
 					<option value="1">1.</option>
 					<option value="2">2.</option>
 					<option value="3">3.</option>
 					<option value="4">4.</option>
 					<option value="5">5.</option>
 					<option value="6">6.</option>
-					<option value="7" selected>7.</option>
+					<option value="7">7.</option>
 					<option value="8">8.</option>
 					<option value="9">9.</option>
 					<option value="10">10.</option>
@@ -420,8 +416,8 @@
 					<option value="30">30.</option>
 					<option value="31">31.</option>
 				</select>
-				<select class="drum" name="to_month">
-					<option value="0" selected>January</option>
+				<select class="drum" id="to_month" name="to_month">
+					<option value="0">January</option>
 					<option value="1">February</option>
 					<option value="2">March</option>
 					<option value="3">April</option>
@@ -434,11 +430,16 @@
 					<option value="10">November</option>
 					<option value="11">December</option>
 				</select>
-				<select class="drum" name="to_fullYear">
+				<select class="drum" id="to_fullYear" name="to_fullYear">
+					<option value="2011">2011</option>
+					<option value="2012">2012</option>
 					<option value="2013">2013</option>
-					<option value="2014" selected>2014</option>
+					<option value="2014">2014</option>
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+					<option value="2017">2017</option>
 				</select>
-				<select class="drum" name="to_hours">
+				<select class="drum" id="to_hours" name="to_hours">
 					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
@@ -452,7 +453,7 @@
 					<option value="10">10</option>
 					<option value="11">11</option>
 					<option value="12">12</option>
-					<option value="13" selected>13</option>
+					<option value="13">13</option>
 					<option value="14">14</option>
 					<option value="15">15</option>
 					<option value="16">16</option>
@@ -464,7 +465,7 @@
 					<option value="22">22</option>
 					<option value="23">23</option>
 				</select>
-				<select class="drum" name="to_minutes">
+				<select class="drum" id="to_minutes" name="to_minutes">
 					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
@@ -492,7 +493,7 @@
 					<option value="24">24</option>
 					<option value="25">25</option>
 					<option value="26">26</option>
-					<option value="27" selected>27</option>
+					<option value="27">27</option>
 					<option value="28">28</option>
 					<option value="29">29</option>
 					<option value="30">30</option>

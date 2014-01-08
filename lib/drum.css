@@ -11,6 +11,43 @@ div.drum-wrapper {
     -ms-user-select:none;
     user-select:none;
 }
+div.drum-wrapper .dial {
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	height: 45px;
+	background-color: rgba(255, 255, 255, 0.7);
+	display: none;
+}
+div.drum-wrapper .dial div {
+	width: 20px;
+	height: 10px;
+	height: 100%;
+	margin: 0 auto;
+}
+div.drum-wrapper .dial svg {
+	position: absolute;
+}
+div.drum-wrapper .up {
+	top: 0px;
+}
+div.drum-wrapper .up svg {
+	top: 0px
+}
+div.drum-wrapper .down {
+	bottom: 0px;
+}
+div.drum-wrapper .down svg {
+	bottom: 0px;
+}
+
+div.date_range .show_up .down {
+	display: none;
+}
+
+div.date_range .show_down .up {
+	display: none;
+}
 div.drum-wrapper div.container {
 	width: 100%;
 	height: 20px;
@@ -36,6 +73,9 @@ div.drum {
 }
 
 div.drum figure {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;  
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	-o-backface-visibility: hidden;
