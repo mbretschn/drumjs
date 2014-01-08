@@ -15,15 +15,14 @@ div.drum-wrapper .dial {
 	position: absolute;
 	width: 100%;
 	left: 0px;
-	height: 45px;
+	height: 44px;
 	background-color: rgba(255, 255, 255, 0.7);
 	display: none;
 }
 div.drum-wrapper .dial div {
 	width: 20px;
 	height: 10px;
-	height: 100%;
-	margin: 0 auto;
+	margin-left: 5px;
 }
 div.drum-wrapper .dial svg {
 	position: absolute;
@@ -32,13 +31,13 @@ div.drum-wrapper .up {
 	top: 0px;
 }
 div.drum-wrapper .up svg {
-	top: 0px
+	top: 5px
 }
 div.drum-wrapper .down {
 	bottom: 0px;
 }
 div.drum-wrapper .down svg {
-	bottom: 0px;
+	bottom: 5px;
 }
 
 div.date_range .show_up .down {

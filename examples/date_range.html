@@ -2,19 +2,16 @@
 <head>
 	<meta charset='utf-8'>
 	<meta id="viewport" name="viewport" content ="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
-	<title>Test</title>
-	<script src="../contrib/modernizer.js"></script>
+	<title>Date Range Test</title>
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:200,400,600' rel='stylesheet' type='text/css'>
 
 	<script src="../contrib/jquery-1.9.1.js"></script>
 
 	<script src="../contrib/hammerjs/hammer.js"></script>
 	<script src="../contrib/hammerjs/plugins/hammer.fakemultitouch.js"></script>
-	<script src="../contrib/hammerjs/plugins/hammer.showtouches.js"></script>
 
 	<link rel="stylesheet" href="../lib/drum.css"></link>
 	<script src="../lib/drum.js"></script>
-
 	<style media="screen">
 		* {
 		    -webkit-touch-callout:none;
@@ -43,6 +40,7 @@
 			transition-duration: 0.2s;
 			-webkit-transition-duration: 0.2s;
 		}
+
 		div.date_range_close {
 			transform: translate(0px,150px);
 			-ms-transform: translate(0px,150px);
@@ -80,10 +78,10 @@
 			border-left: none;
 			border-right: none;
 			position: absolute;
-			top: 46px;
+			top: 45px;
 			left: 0px;
 			width: 100%;
-			height: 17px;
+			height: 19px;
 		}
 
 		div.drum figure {
@@ -94,24 +92,30 @@
 		}
 
 		#drum_from_date, #drum_to_date {
-			width: 30px;
+			margin-left: 10px;
 		}
-		#drum_from_date .drum, #drum_to_date .drum {
-			-webkit-transform: rotateY(3deg);
+
+		#drum_from_hours, #drum_to_hours, 
+		#drum_from_minutes, #drum_to_minutes,
+		#drum_from_date, #drum_to_date {
+			width: 25px;
 		}
+
+		#drum_from_hours, #drum_to_hours {
+			margin-left: 10px;
+		}
+
+		#drum_from_hours figure, #drum_to_hours figure, 
+		#drum_from_minutes figure, #drum_to_minutes figure,
 		#drum_from_date figure, #drum_to_date figure {
 			text-align: right;
-			width: 26px;
 		}
+
 		#drum_from_month, #drum_to_month {
-			width: 90px;
+			width: 75px;
 		}
 		#drum_from_fullYear, #drum_to_fullYear {
-			width: 50px;
-		}
-		#drum_from_hours, #drum_to_hours, 
-		#drum_from_minutes, #drum_to_minutes {
-			width: 25px;
+			width: 38px;
 		}
 
 		.date_range_from, .date_range_to {
@@ -141,7 +145,6 @@
 	</style>
 	<script>
 		Hammer.plugins.fakeMultitouch();
-		//Hammer.plugins.showTouches();
 
 		function getIndexForValue(elem, value) {
 			for (var i=0; i<elem.options.length; i++)
@@ -163,9 +166,8 @@
 				$(".date_range .handle" ).toggleClass("show_down");
 			});
 			
-			$("select.drum").drum({ 
-				panelCount: 24, 
-				transformProp : Modernizr.prefixed('transform'),
+			$("select.date").drum({ 
+				panelCount: 24,
 				onChange : function (elem) {
 					var section = elem.name.substr(0, elem.name.indexOf("_"));
 					var arr = {'date' : 'setDate', 'month' : 'setMonth', 'fullYear' : 'setFullYear', 'hours' : 'setHours', 'minutes' : 'setMinutes'};
@@ -230,7 +232,7 @@
 			</div>
 			<form name="date_from">
 				<div class="lines"></div>
-				<select class="drum" id="from_date" name="from_date">
+				<select class="date" id="from_date" name="from_date">
 					<option value="1">1.</option>
 					<option value="2">2.</option>
 					<option value="3">3.</option>
@@ -263,7 +265,7 @@
 					<option value="30">30.</option>
 					<option value="31">31.</option>
 				</select>
-				<select class="drum" id="from_month" name="from_month">
+				<select class="date" id="from_month" name="from_month">
 					<option value="0">January</option>
 					<option value="1">February</option>
 					<option value="2">March</option>
@@ -277,7 +279,7 @@
 					<option value="10">November</option>
 					<option value="11">December</option>
 				</select>
-				<select class="drum" id="from_fullYear" name="from_fullYear">
+				<select class="date" id="from_fullYear" name="from_fullYear">
 					<option value="2011">2011</option>
 					<option value="2012">2012</option>
 					<option value="2013">2013</option>
@@ -286,7 +288,7 @@
 					<option value="2016">2016</option>
 					<option value="2017">2017</option>
 				</select>
-				<select class="drum" id="from_hours" name="from_hours">
+				<select class="date" id="from_hours" name="from_hours">
 					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
@@ -312,7 +314,7 @@
 					<option value="22">22</option>
 					<option value="23">23</option>
 				</select>
-				<select class="drum" id="from_minutes" name="from_minutes">
+				<select class="date" id="from_minutes" name="from_minutes">
 					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
@@ -383,7 +385,7 @@
 			</div>
 			<form name="date_to">
 				<div class="lines"></div>
-				<select class="drum" id="to_date" name="to_date">
+				<select class="date" id="to_date" name="to_date">
 					<option value="1">1.</option>
 					<option value="2">2.</option>
 					<option value="3">3.</option>
@@ -416,7 +418,7 @@
 					<option value="30">30.</option>
 					<option value="31">31.</option>
 				</select>
-				<select class="drum" id="to_month" name="to_month">
+				<select class="date" id="to_month" name="to_month">
 					<option value="0">January</option>
 					<option value="1">February</option>
 					<option value="2">March</option>
@@ -430,7 +432,7 @@
 					<option value="10">November</option>
 					<option value="11">December</option>
 				</select>
-				<select class="drum" id="to_fullYear" name="to_fullYear">
+				<select class="date" id="to_fullYear" name="to_fullYear">
 					<option value="2011">2011</option>
 					<option value="2012">2012</option>
 					<option value="2013">2013</option>
@@ -439,7 +441,7 @@
 					<option value="2016">2016</option>
 					<option value="2017">2017</option>
 				</select>
-				<select class="drum" id="to_hours" name="to_hours">
+				<select class="date" id="to_hours" name="to_hours">
 					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
@@ -465,7 +467,7 @@
 					<option value="22">22</option>
 					<option value="23">23</option>
 				</select>
-				<select class="drum" id="to_minutes" name="to_minutes">
+				<select class="date" id="to_minutes" name="to_minutes">
 					<option value="0">00</option>
 					<option value="1">01</option>
 					<option value="2">02</option>
