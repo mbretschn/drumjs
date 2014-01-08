@@ -2,33 +2,38 @@
 <head>
 	<meta charset='utf-8'>
 	<meta id="viewport" name="viewport" content ="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
-	<title>Test</title>
-	<script src="../contrib/modernizer.js"></script>
+	<title>Simple Test</title>
 	<script src="../contrib/jquery-1.9.1.js"></script>
 
-	<script src="../contrib/hammerjs/hammer.js"></script>
-	<script src="../contrib/hammerjs/plugins/hammer.fakemultitouch.js"></script>
-	<script src="../contrib/hammerjs/plugins/hammer.showtouches.js"></script>
+	<script src="../contrib/hammerjs/hammer.min.js"></script>
+	<script src="../contrib/hammerjs/hammer.fakemultitouch.js"></script>
 
 	<link rel="stylesheet" href="../lib/drum.css"></link>
 	<script src="../lib/drum.js"></script>
-	<script>
-		Hammer.plugins.fakeMultitouch();
-		$(document).ready(function () {
-			$("select.drum").drum({ 
-				width: 30,
-				panelCount: 24, 
-				transformProp : Modernizr.prefixed('transform'),
-				onChange : function (elem) {
-					
-				}
-			});
-		});
-	</script>
+
 	<style>
-	#drum_numbers { background-color: #eeeeee; }
-	div.drum figure { text-align: center; font-family: "Trebuchet MS", Helvetica, sans-serif; font-size: 90%; }
+		#drum_numbers { 
+			background-color: #eeeeee; 
+		}
+		div.drum-wrapper {
+			width: 30px;
+		}
+		div.drum figure { 
+			text-align: center;
+			font-family: "Trebuchet MS", Helvetica, sans-serif; 
+			font-size: 90%; 
+		}
 	</style>
+	<script>
+		"use strict";
+
+		Hammer.plugins.fakeMultitouch();
+		
+		$(document).ready(function () {
+			$("#numbers").drum();
+		});
+		
+	</script>
 </head>
 <body>
 <select id="numbers" class="drum" name="simple">

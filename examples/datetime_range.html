@@ -2,16 +2,15 @@
 <head>
 	<meta charset='utf-8'>
 	<meta id="viewport" name="viewport" content ="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
-	<title>Date Range Test</title>
-	<link href='http://fonts.googleapis.com/css?family=Exo+2:200,400,600' rel='stylesheet' type='text/css'>
-
+	<title>DateTime Range Test</title>
 	<script src="../contrib/jquery-1.9.1.js"></script>
 
-	<script src="../contrib/hammerjs/hammer.js"></script>
-	<script src="../contrib/hammerjs/plugins/hammer.fakemultitouch.js"></script>
+	<script src="../contrib/hammerjs/hammer.min.js"></script>
+	<script src="../contrib/hammerjs/hammer.fakemultitouch.js"></script>
 
 	<link rel="stylesheet" href="../lib/drum.css"></link>
 	<script src="../lib/drum.js"></script>
+
 	<style media="screen">
 		* {
 		    -webkit-touch-callout:none;
@@ -20,57 +19,19 @@
 		    -ms-user-select:none;
 		    user-select:none;
 		}
-		body {
-			background-color: #eee;			
+		body {	
 			width: 100%;
 			height: 100%;
 			overflow: hidden;
 			font-family: arial,verdana,sans-serif;
-			margin: 0;
-		}
-		div.date_range {
-			position: absolute;
-			bottom: 0px;
-			width: 100%;
-			height: 170px;
-			padding: 0;
-			text-align: center;
-			transition-timing-function: ease-in;
-			-webkit-transition-timing-function: ease-in;
-			transition-duration: 0.2s;
-			-webkit-transition-duration: 0.2s;
 		}
 
-		div.date_range_close {
-			transform: translate(0px,150px);
-			-ms-transform: translate(0px,150px);
-			-webkit-transform: translate(0px,150px);
-		}
-		div.date_range form {
-			position: relative;
-		}
 		div.date_range_to {
 			margin-left: 25px;
 		}
-		div.date_range div.date_range_container {
+
+		div.date_range form {
 			position: relative;
-			display: inline-block;
-			width: 485px;
-			height: 175px;
-			background-color: #fefefe;
-			padding: 0px 0px 5px 9px;
-
-			-webkit-border-radius: 5px;
-			-moz-border-radius: 5px;
-			border-radius: 5px;
-
-			-webkit-box-shadow: 0px -1px 5px 1px rgba(150, 150, 150, 0.33);
-			-moz-box-shadow:    0px -1px 5px 1px rgba(150, 150, 150, 0.33);
-			box-shadow:         0px -1px 5px 1px rgba(150, 150, 150, 0.33);
-		}
-		div.date_range div.date_range_container .handle {
-			height: 15px;
-			padding-top: 5px;
 		}
 
 		div.date_range div.date_range_container .lines {
@@ -82,13 +43,18 @@
 			left: 0px;
 			width: 100%;
 			height: 19px;
+			font-size: 80%;
 		}
 
+		div.date_range div.date_range_container .lines div {
+			margin-left: 183px;
+			margin-top: 1px;
+		}		
+
 		div.drum figure {
-			font-family: 'Exo 2', sans-serif;
 			font-weight: 200;
 			text-align: left;
-			font-size: 90%;
+			font-size: 80%;
 		}
 
 		#drum_from_date, #drum_to_date {
@@ -126,7 +92,6 @@
 
 		.date_range_header {
 			height: 25px;
-			font-family: 'Exo 2', sans-serif;
 			font-weight: 400;
 			font-size: 90%;
 			border-bottom: 1px solid #CCC;
@@ -160,12 +125,6 @@
 		}
 
 		$(document).ready(function () {
-			$(".date_range .handle").click(function () {
-				$(".date_range" ).toggleClass("date_range_close");
-				$(".date_range .handle" ).toggleClass("show_up");
-				$(".date_range .handle" ).toggleClass("show_down");
-			});
-			
 			$("select.date").drum({ 
 				panelCount: 24,
 				onChange : function (elem) {
@@ -211,27 +170,13 @@
 <body>
 <div class="date_range">
 	<div class="date_range_container">
-		<div class="handle show_down">
-			<svg width="40" height="10" class="up" xmlns="http://www.w3.org/2000/svg">
-				<g>
-					<line stroke="#555555" fill="none" x1="0" y1="8" x2="20" y2="0"/>
-					<line stroke="#555555" fill="none" x1="20" y1="0" x2="40" y2="8"/>
-				</g>
-			</svg>
-			<svg width="40" height="10" class="down" xmlns="http://www.w3.org/2000/svg">
-				<g>
-					<line stroke="#555555" fill="none" x1="0" y1="0" x2="20" y2="8"/>
-					<line stroke="#555555" fill="none" x1="20" y1="8" x2="40" y2="0"/>
-				</g>
-			</svg>
-		</div>
 		<div class="date_range_from">
 			<div class="date_range_header date_range_from_header">
 				<span class="title">Begin</span>
 				<span class="selection"></span>
 			</div>
 			<form name="date_from">
-				<div class="lines"></div>
+				<div class="lines"><div>:</div></div>
 				<select class="date" id="from_date" name="from_date">
 					<option value="1">1.</option>
 					<option value="2">2.</option>
@@ -384,7 +329,7 @@
 				<span class="selection"></span>
 			</div>
 			<form name="date_to">
-				<div class="lines"></div>
+				<div class="lines"><div>:</div></div>
 				<select class="date" id="to_date" name="to_date">
 					<option value="1">1.</option>
 					<option value="2">2.</option>
