@@ -2,7 +2,7 @@ div.drum-wrapper {
 	position: relative;
 	float: left;
 	overflow: hidden;
-	height: 145px;
+	height: 110px;
 	width: 100px;
 	_border: 1px solid #CCC;
     -webkit-touch-callout:none;
@@ -13,9 +13,9 @@ div.drum-wrapper {
 }
 div.drum-wrapper div.container {
 	width: 100%;
-	height: 25px;
+	height: 20px;
 	position: absolute;
-	top: 60px;
+	top: 45px;
 	left: 0px;
 	-webkit-perspective: 1100px;
 	-moz-perspective: 1100px;
@@ -42,10 +42,10 @@ div.drum figure {
 	backface-visibility: hidden;
 	display: block;
 	position: absolute;
-	height: 25px;
+	height: 20px;
 	left: 0px;
 	top: 0px;
-	line-height: 25px;
+	line-height: 20px;
 	color: black;
 	margin: 0px;
 	padding: 0px 3px;

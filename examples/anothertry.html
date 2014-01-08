@@ -26,11 +26,8 @@
 		div.drum figure {
 			font-family: 'Exo 2', sans-serif;
 		}
-		div.drum-wrapper {
+		.ABC, .number, .country {
 			border-right: 1px solid #dedede;
-		}
-		div.drum-wrapper:last-Child {
-			border: none;
 		}
 	</style>
 	<script>
@@ -38,10 +35,10 @@
 		Hammer.plugins.showTouches();
 		$(document).ready(function () {
 			//$("select.drum").drum({ transformProp : Modernizr.prefixed('transform') });
-			$("#ABC").drum({ transformProp : Modernizr.prefixed('transform'), width: 25 });
-			$("#number").drum({ transformProp : Modernizr.prefixed('transform'), width: 35 });
-			$("#country").drum({ transformProp : Modernizr.prefixed('transform'), width: 200 });
-			$("#n45").drum({ transformProp : Modernizr.prefixed('transform'), width: 30 });
+			$("#ABC").drum({ className: 'ABC', transformProp : Modernizr.prefixed('transform'), width: 25 });
+			$("#number").drum({ className: 'number', transformProp : Modernizr.prefixed('transform'), width: 35 });
+			$("#country").drum({ className: 'country', transformProp : Modernizr.prefixed('transform'), width: 200 });
+			$("#n45").drum({ className: 'n45', transformProp : Modernizr.prefixed('transform'), width: 30 });
 		});
 	</script>
 </head>
