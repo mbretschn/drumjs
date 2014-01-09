@@ -1,12 +1,12 @@
 /* main container styles */
 div.drum-wrapper {
 	position: relative;
-	width: 100px;
     -webkit-touch-callout:none;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
+    width: 30px;
 }
 div.drum-wrapper .inner {
 	position: relative;
@@ -105,6 +105,7 @@ div.drum figure {
 	white-space: nowrap;
 	overflow: hidden;
 	width: 100%;
+	text-align: left;
 }
 
 div.drum-wrapper div.container, div.drum-wrapper figure {
