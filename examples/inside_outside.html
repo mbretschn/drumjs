@@ -1,0 +1,191 @@
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta id="viewport" name="viewport" content ="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
+	<title>Inside Outside Test</title>
+	<script src="../contrib/jquery-1.9.1.js"></script>
+
+	<script src="../contrib/hammerjs/hammer.min.js"></script>
+	<script src="../contrib/hammerjs/hammer.fakemultitouch.js"></script>
+
+	<link rel="stylesheet" href="../lib/drum.css"></link>
+	<script src="../lib/drum.js"></script>
+
+	<style>
+		body {
+			background-color: #fefefe;
+			font-family: Arial, Verdana, sans-serif;
+		}
+
+		#drum_numbers1, #drum_numbers2 { 
+			background-color: #f8f8f8; 
+			width: 30px;
+		}
+		#drum_numbers1 figure, #drum_numbers2 figure { 
+			text-align: center;
+			font-family: "Trebuchet MS", Helvetica, sans-serif; 
+		}
+
+		p { float: left; margin: 10px; }
+		.clear { clear: both; margin: 0px; }
+		.text { width: 300px; margin-left: 0px; }
+
+		.values {
+			width: 40px;
+			line-height: 30px;
+			font-size: 1.5em;
+			text-align: center;
+		}
+	</style>
+	<script>
+		"use strict";
+
+		Hammer.plugins.fakeMultitouch();
+		
+		$(document).ready(function () {
+			$("select.drum").drum({
+				onChange : function (selected) {
+					$("#" + selected.id + "_value").val(selected.value);
+				} 
+			});
+		});
+		
+	</script>
+</head>
+<body>
+<h1>DrumJS Inside/Outside Example</h1>
+<p class="text">Dial inside</p>
+<p class="inside">
+	<select id="numbers1" class="drum">
+		<option value="0">00</option>
+		<option value="1">01</option>
+		<option value="2">02</option>
+		<option value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">05</option>
+		<option value="6">06</option>
+		<option value="7">07</option>
+		<option value="8">08</option>
+		<option value="9">09</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option value="13">13</option>
+		<option value="14">14</option>
+		<option value="15">15</option>
+		<option value="16">16</option>
+		<option value="17">17</option>
+		<option value="18">18</option>
+		<option value="19">19</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">22</option>
+		<option value="23">23</option>
+		<option value="24">24</option>
+		<option value="25">25</option>
+		<option value="26">26</option>
+		<option value="27">27</option>
+		<option value="28">28</option>
+		<option value="29">29</option>
+		<option value="30">30</option>
+		<option value="31">31</option>
+		<option value="32">32</option>
+		<option value="33">33</option>
+		<option value="34">34</option>
+		<option value="35">35</option>
+		<option value="36">36</option>
+		<option value="37">37</option>
+		<option value="38">38</option>
+		<option value="39">39</option>
+		<option value="40">40</option>
+		<option value="41">41</option>
+		<option selected value="42">42</option>
+		<option value="43">43</option>
+		<option value="44">44</option>
+		<option value="45">45</option>
+		<option value="46">46</option>
+		<option value="47">47</option>
+		<option value="48">48</option>
+		<option value="49">49</option>
+		<option value="50">50</option>
+		<option value="51">51</option>
+		<option value="52">52</option>
+		<option value="53">53</option>
+		<option value="54">54</option>
+		<option value="55">55</option>
+		<option value="56">56</option>
+		<option value="57">57</option>
+		<option value="58">48</option>
+		<option value="59">59</option>
+	</select>
+</p>
+<p><input type="text" class="values" id="numbers1_value"></p>
+<p class="clear"></p>
+<p class="text">Dial outside</p>
+<p class="outside">
+	<select id="numbers2" class="drum">
+		<option value="0">00</option>
+		<option value="1">01</option>
+		<option value="2">02</option>
+		<option value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">05</option>
+		<option value="6">06</option>
+		<option value="7">07</option>
+		<option value="8">08</option>
+		<option value="9">09</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option selected value="13">13</option>
+		<option value="14">14</option>
+		<option value="15">15</option>
+		<option value="16">16</option>
+		<option value="17">17</option>
+		<option value="18">18</option>
+		<option value="19">19</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">22</option>
+		<option value="23">23</option>
+		<option value="24">24</option>
+		<option value="25">25</option>
+		<option value="26">26</option>
+		<option value="27">27</option>
+		<option value="28">28</option>
+		<option value="29">29</option>
+		<option value="30">30</option>
+		<option value="31">31</option>
+		<option value="32">32</option>
+		<option value="33">33</option>
+		<option value="34">34</option>
+		<option value="35">35</option>
+		<option value="36">36</option>
+		<option value="37">37</option>
+		<option value="38">38</option>
+		<option value="39">39</option>
+		<option value="40">40</option>
+		<option value="41">41</option>
+		<option value="42">42</option>
+		<option value="43">43</option>
+		<option value="44">44</option>
+		<option value="45">45</option>
+		<option value="46">46</option>
+		<option value="47">47</option>
+		<option value="48">48</option>
+		<option value="49">49</option>
+		<option value="50">50</option>
+		<option value="51">51</option>
+		<option value="52">52</option>
+		<option value="53">53</option>
+		<option value="54">54</option>
+		<option value="55">55</option>
+		<option value="56">56</option>
+		<option value="57">57</option>
+		<option value="58">48</option>
+		<option value="59">59</option>
+	</select>
+</p>
+<p><input type="text" class="values" id="numbers2_value"></p>
+</body>
+</html>
