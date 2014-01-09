@@ -1,6 +1,0 @@
-[submodule "contrib/hammerjs"]
-	path = contrib/hammerjs
-	url = github:EightMedia/hammer.js.git
-[submodule "contrib/iso-country"]
-	path = contrib/iso-country
-	url = github:koppi/iso-country-flags-svg-collection.git
