@@ -1,28 +1,61 @@
+/* main container styles */
 div.drum-wrapper {
 	position: relative;
-	float: left;
-	overflow: hidden;
-	height: 110px;
 	width: 100px;
-	_border: 1px solid #CCC;
     -webkit-touch-callout:none;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
 }
+div.drum-wrapper .inner {
+	position: relative;
+	overflow: hidden;
+}
+div.drum-wrapper div.container {
+	position: absolute;
+	width: 100%;
+	top: 48px;
+	left: 0px;
+	-webkit-perspective: 1100px;
+	-moz-perspective: 1100px;
+	-o-perspective: 1100px;
+	perspective: 1100px;
+}
+
+div.drum-wrapper, 
+div.drum-wrapper .inner {
+	height: 120px;
+}
+
+.outside div.drum-wrapper {
+	height: 140px;
+}
+.outside div.drum-wrapper .inner {
+	top: 12px;
+}
+.outside div.drum-wrapper .container {
+	top: 46px;
+}
+
+/* dail styles for mouse controls */
 div.drum-wrapper .dial {
 	position: absolute;
 	width: 100%;
 	left: 0px;
-	height: 44px;
+	height: 48px;
 	background-color: rgba(255, 255, 255, 0.7);
 	display: none;
 }
+
+.outside div.drum-wrapper .dial {
+	height: 58px;
+}
+
 div.drum-wrapper .dial div {
 	width: 20px;
 	height: 10px;
-	margin-left: 5px;
+	margin: 0 auto;
 }
 div.drum-wrapper .dial svg {
 	position: absolute;
@@ -31,34 +64,16 @@ div.drum-wrapper .up {
 	top: 0px;
 }
 div.drum-wrapper .up svg {
-	top: 5px
+	top: 2px
 }
 div.drum-wrapper .down {
 	bottom: 0px;
 }
 div.drum-wrapper .down svg {
-	bottom: 5px;
+	bottom: 2px;
 }
 
-div.date_range .show_up .down {
-	display: none;
-}
-
-div.date_range .show_down .up {
-	display: none;
-}
-div.drum-wrapper div.container {
-	width: 100%;
-	height: 20px;
-	position: absolute;
-	top: 45px;
-	left: 0px;
-	-webkit-perspective: 1100px;
-	-moz-perspective: 1100px;
-	-o-perspective: 1100px;
-	perspective: 1100px;
-}
-
+/* actual drum styles */
 div.drum {
 	width: 100%;
 	height: 100%;
@@ -70,10 +85,9 @@ div.drum {
 	-o-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }
-
 div.drum figure {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;  
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
@@ -81,7 +95,6 @@ div.drum figure {
 	backface-visibility: hidden;
 	display: block;
 	position: absolute;
-	height: 20px;
 	left: 0px;
 	top: 0px;
 	line-height: 20px;
@@ -92,4 +105,9 @@ div.drum figure {
 	white-space: nowrap;
 	overflow: hidden;
 	width: 100%;
+}
+
+div.drum-wrapper div.container, div.drum-wrapper figure {
+	height: 25px;
+	line-height: 25px;
 }

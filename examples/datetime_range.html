@@ -12,91 +12,25 @@
 	<script src="../lib/drum.js"></script>
 
 	<style media="screen">
-		* {
-		    -webkit-touch-callout:none;
-		    -webkit-user-select:none;
-		    -moz-user-select:none;
-		    -ms-user-select:none;
-		    user-select:none;
+		body {
+			background-color: #fefefe;
+			font-family: Arial,Verdana,sans-serif;
 		}
-		body {	
-			width: 100%;
-			overflow: hidden;
-			font-family: arial,verdana,sans-serif;
-		}
-
 		div.date_range_to {
 			margin-left: 25px;
 		}
-
-		div.date_range form {
-			position: relative;
-		}
-
-		div.date_range div.date_range_container .lines {
-			border: solid 1px #CCC;
-			border-left: none;
-			border-right: none;
-			position: absolute;
-			top: 45px;
-			left: 0px;
-			width: 100%;
-			height: 18px;
-			font-size: 80%;
-		}
-
-		div.date_range div.date_range_container .lines div {
-			margin-left: 183px;
-			margin-top: 1px;
-		}		
-
-		div.drum figure {
-			font-weight: 200;
-			text-align: left;
-			font-size: 80%;
-		}
-
-		#drum_from_date, #drum_to_date {
-			margin-left: 10px;
-		}
-
-		#drum_from_hours, #drum_to_hours, 
-		#drum_from_minutes, #drum_to_minutes,
-		#drum_from_date, #drum_to_date {
-			width: 25px;
-		}
-
-		#drum_from_hours, #drum_to_hours {
-			margin-left: 10px;
-		}
-
-		#drum_from_hours figure, #drum_to_hours figure, 
-		#drum_from_minutes figure, #drum_to_minutes figure,
-		#drum_from_date figure, #drum_to_date figure {
-			text-align: right;
-		}
-
-		#drum_from_month, #drum_to_month {
-			width: 75px;
-		}
-		#drum_from_fullYear, #drum_to_fullYear {
-			width: 38px;
-		}
-
 		.date_range_from, .date_range_to {
-			width: 225px;
+			width: 265px;
 			float: left;
 			text-align: left;
 		}
-
+		
 		.date_range_header {
 			height: 25px;
 			font-weight: 400;
-			font-size: 90%;
 			border-bottom: 1px solid #CCC;
 			margin-bottom: 10px;
 		}
-
 		.date_range_header span.title {
 			float: left;
 			text-align: left;
@@ -105,6 +39,66 @@
 			float: right;
 			text-align: right;
 			color: #CE0000;
+		}
+
+		div.date_range form {
+			position: relative;
+		}
+		div.date_range div.date_range_container .lines {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;  
+			border-top: solid 1px #CCC;
+			border-bottom: solid 1px #CCC;
+			position: absolute;
+			top: 58px;
+			left: 0px;
+			width: 100%;
+			height: 24px;
+		}
+		div.date_range div.date_range_container .lines div {
+			margin-left: 220px;
+			line-height: 21px;
+		}		
+
+		div.drum-wrapper {
+			float: left;
+		}
+		div.drum figure {
+			text-align: left;
+		}
+		#drum_from_hours figure, #drum_to_hours figure,
+		#drum_from_date figure, #drum_to_date figure {
+			text-align: right;
+		}
+		#drum_from_date, #drum_to_date {
+			margin-left: 10px;
+			margin-right: 5px;
+		}
+		#drum_from_date, #drum_to_date,
+		#drum_from_hours, #drum_to_hours, 
+		#drum_from_minutes, #drum_to_minutes {
+			width: 30px;
+		}
+		#drum_from_hours, #drum_to_hours {
+			margin-left: 10px;
+		}
+		#drum_from_minutes, #drum_to_minutes {
+			margin-left: 4px;
+		}
+		#drum_from_month, #drum_to_month {
+			width: 90px;
+		}
+		#drum_from_fullYear, #drum_to_fullYear {
+			width: 45px;
+		}
+		#drum_from_hours .dial div,
+		#drum_to_hours .dial div {
+			margin: 0 7px;
+		}
+		#drum_from_minutes .dial div,
+		#drum_to_minutes .dial div  {
+			margin: 0 2px;
 		}
 	</style>
 	<script>
@@ -123,9 +117,16 @@
 			return number;
 		}
 
+		function update(section, datetime) {
+			$("#" + section + "_date").drum('setIndex', datetime.getDate()-1); 
+			$("#" + section + "_month").drum('setIndex', datetime.getMonth()); 
+			$("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#" + section + "_fullYear")[0], datetime.getFullYear())); 
+			$("#" + section + "_hours").drum('setIndex', datetime.getHours()); 
+			$("#" + section + "_minutes").drum('setIndex', datetime.getMinutes()); 			
+		}
+
 		$(document).ready(function () {
 			$("select.date").drum({ 
-				panelCount: 24,
 				onChange : function (elem) {
 					var section = elem.name.substr(0, elem.name.indexOf("_"));
 					var arr = {'date' : 'setDate', 'month' : 'setMonth', 'fullYear' : 'setFullYear', 'hours' : 'setHours', 'minutes' : 'setMinutes'};
@@ -135,12 +136,7 @@
 						eval ("date." + arr[s] + "(" + i + ")");
 					}
 					date.setSeconds(0);
-
-					$("#" + section + "_date").drum('setIndex', date.getDate()-1); 
-					$("#" + section + "_month").drum('setIndex', date.getMonth()); 
-					$("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#from_fullYear")[0], date.getFullYear())); 
-					$("#" + section + "_hours").drum('setIndex', date.getHours()); 
-					$("#" + section + "_minutes").drum('setIndex', date.getMinutes()); 
+					update(section, date);
 
 					var format = date.getFullYear() + '-' + pad( date.getMonth() + 1 ) + '-' + pad( date.getDate() ) + ' ' + pad( date.getHours() ) + ':' + pad( date.getMinutes() );
 
@@ -149,26 +145,14 @@
 			});
 
 			var now = new Date();
-			var init_date_from = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-			var init_date_to = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0);
-
-			$("#from_date").drum('setIndex', init_date_from.getDate()-1); 
-			$("#from_month").drum('setIndex', init_date_from.getMonth()); 
-			$("#from_fullYear").drum('setIndex', getIndexForValue($("#from_fullYear")[0], init_date_from.getFullYear())); 
-			$("#from_hours").drum('setIndex', init_date_from.getHours()); 
-			$("#from_minutes").drum('setIndex', init_date_from.getMinutes()); 
-
-			$("#to_date").drum('setIndex', init_date_to.getDate()-1); 
-			$("#to_month").drum('setIndex', init_date_to.getMonth()); 
-			$("#to_fullYear").drum('setIndex', getIndexForValue($("#to_fullYear")[0], init_date_to.getFullYear())); 
-			$("#to_hours").drum('setIndex', init_date_to.getHours()); 
-			$("#to_minutes").drum('setIndex', init_date_to.getMinutes()); 
+			update("from", new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
+			update("to", new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0));
 		});
 	</script>
 </head>
 <body>
 <h1>DrumJS Datetime Range Picker</h1>
-<div class="date_range">
+<div class="date_range outside">
 	<div class="date_range_container">
 		<div class="date_range_from">
 			<div class="date_range_header date_range_from_header">

@@ -9,98 +9,66 @@
 	<script src="../lib/drum.js"></script>
 
 	<style media="screen">
-		* {
-		    -webkit-touch-callout:none;
-		    -webkit-user-select:none;
-		    -moz-user-select:none;
-		    -ms-user-select:none;
-		    user-select:none;
+		body {
+			background-color: #fefefe;
+			font-family: Arial, Verdana, sans-serif;
 		}
-		body {	
-			width: 100%;
-			overflow: hidden;
-			font-family: arial,verdana,sans-serif;
+		div.drum-wrapper {
+			float: left;
 		}
-
-		div.date_wrapper {
-			width: 230px;
-		}
-
-		div.date_wrapper form {
-			position: relative;
-		}
-
-		div.date_wrapper form .lines {
-			border: solid 1px #CCC;
-			border-left: none;
-			border-right: none;
-			position: absolute;
-			top: 45px;
-			left: 0px;
-			width: 100%;
-			height: 18px;
-			font-size: 80%;
-		}
-
-		div.date_wrapper form .lines div {
-			display: inline;
-			line-height: 16px;
-		}
-		div.date_wrapper form .lines div.h {
-			margin-left: 173px;
-		}
-		div.date_wrapper form .lines div.m {
-			margin-left: 18px;
-		}		
 
 		div.drum {
 			transition-duration: 0.2s;
 			-webkit-transition-duration: 0.2s;			
 		}
-
 		div.drum figure {
 			text-align: left;
-			font-size: 80%;
 		}
-
 		#drum_date {
-			width: 25px;
+			width: 40px;
 		}
-
 		#drum_hours, #drum_minutes, #drum_seconds {
-			width: 25px;
+			width: 30px;
 		}
-
 		#drum_date figure, #drum_hours figure, #drum_minutes figure, #drum_seconds figure {
 			text-align: right;
 		}
-
 		#drum_month {
-			width: 75px;
+			width: 90px;
 		}
 		#drum_fullYear {
-			width: 38px;
+			width: 50px;
 			margin-right: 10px;
 		}
 
-		.date_header {
-			height: 25px;
-			font-weight: 400;
-			font-size: 90%;
-			border-bottom: 1px solid #CCC;
-			margin-bottom: 10px;
+		div.date-wrapper {
+			width: 300px;
 		}
-
-		.date_header span.title {
-			float: left;
-			text-align: left;
+		div.date-wrapper form .lines {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;  
+			border-top: solid 1px #CCC;
+			border-bottom: solid 1px #CCC;
+			position: absolute;
+			top: 49px;
+			left: 0px;
+			width: 100%;
+			height: 23px;
 		}
-		.date_header span.selection {
-			float: right;
-			text-align: right;
-			color: #CE0000;
+		div.date-wrapper form {
+			position: relative;
 		}
-
+		div.date-wrapper form .lines div {
+			display: inline;
+			line-height: 20px;
+		}
+		div.date-wrapper form .lines div.h {
+			margin-left: 221px;
+		}
+		div.date-wrapper form .lines div.m {
+			margin-left: 22px;
+		}			
 	</style>
 	<script>
 		function getIndexForValue(elem, value) {
@@ -110,29 +78,32 @@
 		}
 
 		$(document).ready(function () {
-			$("select.date").drum({ 
-				panelCount: 24,
+			$("select.date").drum({
 				interactive: false
 			});
-
+			var last_seconds = 0;
 			var setDateTime = function () {
 				var now = new Date();
-				$("#date").drum('setIndex', now.getDate()-1); 
-				$("#month").drum('setIndex', now.getMonth()); 
-				$("#fullYear").drum('setIndex', getIndexForValue($("#fullYear")[0], now.getFullYear())); 
-				$("#hours").drum('setIndex', now.getHours()); 
-				$("#minutes").drum('setIndex', now.getMinutes());
-				$("#seconds").drum('setIndex', now.getSeconds());				
+				
+				if (now.getSeconds() != last_seconds) {
+					last_seconds = now.getSeconds();
+					$("#date").drum('setIndex', now.getDate()-1); 
+					$("#month").drum('setIndex', now.getMonth()); 
+					$("#fullYear").drum('setIndex', getIndexForValue($("#fullYear")[0], now.getFullYear())); 
+					$("#hours").drum('setIndex', now.getHours()); 
+					$("#minutes").drum('setIndex', now.getMinutes());
+					$("#seconds").drum('setIndex', now.getSeconds());
+				}				
 			}
 			setDateTime();
 
-			window.setInterval(setDateTime, 1000);
+			window.setInterval(setDateTime, 100);
 		});
 	</script>
 </head>
 <body>
 <h1>DrumJS Clock Example</h1>
-<div class="date_wrapper">
+<div class="date-wrapper">
 	<form name="date">
 		<div class="lines">
 			<div class="h">:</div>
