@@ -1,6 +1,4 @@
-http://api.jqueryui.com/jQuery.widget/
-
-http://learn.jquery.com/plugins/stateful-plugins-with-widget-factory/
+Unit tests still missing
 
 Example for <a href="../">Intro to CSS 3D transforms</a> by David DeSandro
 
