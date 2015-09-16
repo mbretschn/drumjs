@@ -65,11 +65,11 @@ The enhancement to a drumjs widget is done by calling calling the plugin on a se
 
 Doing so, the HTMLselect element is hidden and the values are shown as a cylindrical 3d projection.
 
-![](https://raw2.github.com/3epnm/drumjs/master/docs/simple.png "simple drumjs example")
+![](https://raw.githubusercontent.com/3epnm/drumjs/master/docs/simple.png "simple drumjs example")
 
 Without the HammerJS library, the plugin only works by clicking on the upper and lower area of ​​the widget. This functionality allows the use even if no touch gestures are supported. 
 
-![](https://raw2.github.com/3epnm/drumjs/master/docs/simple-hover.png "simple-hover drumjs example")
+![](https://raw.githubusercontent.com/3epnm/drumjs/master/docs/simple-hover.png "simple-hover drumjs example")
 
 A hover effect indecates where the active areas are. By clicking on the areas the drum is turned up or down. The highlighted item is immediately written as selected index element in the HtmlSelect.
 
@@ -162,7 +162,7 @@ By default, the Icons for dailing the drum are rendered inside the drum area. Fo
 
 which results in a following view of the widget:
 
-![](https://raw2.github.com/3epnm/drumjs/master/docs/simple-hover-outside.png "simple-hover-outside drumjs example")
+![](https://raw.githubusercontent.com/3epnm/drumjs/master/docs/simple-hover-outside.png "simple-hover-outside drumjs example")
 
 ##### Other layout options
 In particular, when changing the panel count an adjustment of the widget css is required. The following example demonstrates how a larger number of panels and adjusted css changes the appearance of the widget. (The ID of the widget DOM was generated from the ID of the HTMLselect element)
@@ -216,7 +216,7 @@ In particular, when changing the panel count an adjustment of the widget css is 
 
 Results into:
 
-![](https://raw2.github.com/3epnm/drumjs/master/docs/layout-options.png "layout options drumjs example")
+![](https://raw.githubusercontent.com/3epnm/drumjs/master/docs/layout-options.png "layout options drumjs example")
 
 ### Thanx
 
