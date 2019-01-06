@@ -27,17 +27,17 @@ Thus, the widget can be uniquely addressed with CSS.
 #### Demo
 The following examples demonstrate what is possible with the DrumJS widget:
 
-[simple example](https://mb.aquarius.uberspace.de/drumjs/examples/simple.html)
+[simple example](https://3epnm.de/drumjs/examples/simple.html)
 
-[inside outside dial example](https://mb.aquarius.uberspace.de/drumjs/examples/inside_outside.html)
+[inside outside dial example](https://3epnm.de/drumjs/examples/inside_outside.html)
 
-[datetime picker](https://mb.aquarius.uberspace.de/drumjs/examples/datetime.html)
+[datetime picker](https://3epnm.de/drumjs/examples/datetime.html)
 
-[datetime range picker](https://mb.aquarius.uberspace.de/drumjs/examples/datetime_range.html)
+[datetime range picker](https://3epnm.de/drumjs/examples/datetime_range.html)
 
-[clock example](https://mb.aquarius.uberspace.de/drumjs/examples/clock.html)
+[clock example](https://3epnm.de/drumjs/examples/clock.html)
 
-[layout options example](https://mb.aquarius.uberspace.de/drumjs/examples/layout_options.html)
+[layout options example](https://3epnm.de/drumjs/examples/layout_options.html)
 
 
 ### Prerequisites
