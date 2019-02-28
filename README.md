@@ -49,7 +49,7 @@ The plugin consists of a JavaScript and a CSS file:
 	<link rel="stylesheet" href="drum.min.css"></link>
 	<script src="drum.min.js"></script>
 
-The enhancement to a drumjs widget is done by calling calling the plugin on a selected HTMLselect element:
+The enhancement to a drumjs widget is done by calling the plugin on a selected HTMLselect element:
 	
     <select>
       <option>1</option>
